@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<websites>
+	<site>
+		<url>http://finlandned.org/administrator/index.php</url>
+		<username>jos</username>
+		<password></password>
+		<x_path>//head/title</x_path>
+		<content_requirement>![CDATA[<title>Finlandned - Administration</title>]]</content_requirement>
+	</site>
+	<site>
+		<url>http://www.valaquanta.fi/wp-login.php</url>
+		<username>jos</username>
+		<password></password>
+		<x_path>//head/mistakke</x_path>
+		<content_requirement></content_requirement>
+	</site>
+	<site>
+		<url>http://wrongsitename.com/</url>
+		<username></username>
+		<password></password>
+		<x_path></x_path>
+		<content_requirement></content_requirement>
+	</site>	
+</websites>
+
