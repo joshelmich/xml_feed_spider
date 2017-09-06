@@ -1,11 +1,11 @@
-2017-09-05 23:37:10 [scrapy.utils.log] INFO: Scrapy 1.3.0 started (bot: xml_feed_checker)
-2017-09-05 23:37:10 [scrapy.utils.log] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'xml_feed_checker.spiders', 'SPIDER_MODULES': ['xml_feed_checker.spiders'], 'LOG_FILE': 'xml_feed_spider.log', 'BOT_NAME': 'xml_feed_checker'}
-2017-09-05 23:37:10 [xml_feed_spider.log] INFO: its started
-2017-09-05 23:37:10 [scrapy.middleware] INFO: Enabled extensions:
+2017-09-06 10:11:24 [scrapy.utils.log] INFO: Scrapy 1.3.0 started (bot: xml_feed_checker)
+2017-09-06 10:11:24 [scrapy.utils.log] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'xml_feed_checker.spiders', 'SPIDER_MODULES': ['xml_feed_checker.spiders'], 'LOG_FILE': 'xml_feed_spider.log', 'BOT_NAME': 'xml_feed_checker'}
+2017-09-06 10:11:24 [xml_feed_spider.log] INFO: its started
+2017-09-06 10:11:24 [scrapy.middleware] INFO: Enabled extensions:
 ['scrapy.extensions.logstats.LogStats',
  'scrapy.extensions.telnet.TelnetConsole',
  'scrapy.extensions.corestats.CoreStats']
-2017-09-05 23:37:10 [scrapy.middleware] INFO: Enabled downloader middlewares:
+2017-09-06 10:11:24 [scrapy.middleware] INFO: Enabled downloader middlewares:
 ['xml_feed_checker.middlewares.DownloadTimer',
  'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
  'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
@@ -17,29 +17,29 @@
  'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
  'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
  'scrapy.downloadermiddlewares.stats.DownloaderStats']
-2017-09-05 23:37:10 [scrapy.middleware] INFO: Enabled spider middlewares:
+2017-09-06 10:11:24 [scrapy.middleware] INFO: Enabled spider middlewares:
 ['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
  'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
  'scrapy.spidermiddlewares.referer.RefererMiddleware',
  'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
  'scrapy.spidermiddlewares.depth.DepthMiddleware']
-2017-09-05 23:37:10 [scrapy.middleware] INFO: Enabled item pipelines:
+2017-09-06 10:11:24 [scrapy.middleware] INFO: Enabled item pipelines:
 []
-2017-09-05 23:37:10 [scrapy.core.engine] INFO: Spider opened
-2017-09-05 23:37:10 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
-2017-09-05 23:37:10 [scrapy.extensions.telnet] DEBUG: Telnet console listening on 127.0.0.1:6023
-2017-09-05 23:37:10 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://finlandned.org/websites.xml> (referer: None)
-2017-09-05 23:37:10 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET http://wrongsitename.com/> (failed 1 times): DNS lookup failed: address 'wrongsitename.com' not found: [Errno -2] Name or service not known.
-2017-09-05 23:37:10 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET http://wrongsitename.com/> (failed 2 times): DNS lookup failed: address 'wrongsitename.com' not found: [Errno -2] Name or service not known.
-2017-09-05 23:37:10 [scrapy.downloadermiddlewares.retry] DEBUG: Gave up retrying <GET http://wrongsitename.com/> (failed 3 times): DNS lookup failed: address 'wrongsitename.com' not found: [Errno -2] Name or service not known.
-2017-09-05 23:37:10 [scrapy.core.engine] DEBUG: Crawled (110) <GET http://wrongsitename.com/> (referer: http://finlandned.org/websites.xml)
-2017-09-05 23:37:10 [xml_feed_spider.log] ERROR: Status; HttpError on http://wrongsitename.com/ , DownloadTime: 0.004
-2017-09-05 23:37:11 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://finlandned.org/administrator/index.php> (referer: http://finlandned.org/websites.xml)
-2017-09-05 23:37:11 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://www.valaquanta.fi/wp-login.php> (referer: http://finlandned.org/websites.xml)
-2017-09-05 23:37:11 [xml_feed_spider.log] INFO: Status; NoError on http://finlandned.org/administrator/index.php , DownloadTime: 0.425
-2017-09-05 23:37:11 [xml_feed_spider.log] ERROR: Status; RequiredPathNotFound on http://www.valaquanta.fi/wp-login.php , DownloadTime: 0.446
-2017-09-05 23:37:11 [scrapy.core.engine] INFO: Closing spider (finished)
-2017-09-05 23:37:11 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+2017-09-06 10:11:24 [scrapy.core.engine] INFO: Spider opened
+2017-09-06 10:11:24 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2017-09-06 10:11:24 [scrapy.extensions.telnet] DEBUG: Telnet console listening on 127.0.0.1:6023
+2017-09-06 10:11:24 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://finlandned.org/websites.xml> (referer: None)
+2017-09-06 10:11:24 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET http://wrongsitename.com/> (failed 1 times): DNS lookup failed: address 'wrongsitename.com' not found: [Errno -2] Name or service not known.
+2017-09-06 10:11:24 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET http://wrongsitename.com/> (failed 2 times): DNS lookup failed: address 'wrongsitename.com' not found: [Errno -2] Name or service not known.
+2017-09-06 10:11:24 [scrapy.downloadermiddlewares.retry] DEBUG: Gave up retrying <GET http://wrongsitename.com/> (failed 3 times): DNS lookup failed: address 'wrongsitename.com' not found: [Errno -2] Name or service not known.
+2017-09-06 10:11:24 [scrapy.core.engine] DEBUG: Crawled (110) <GET http://wrongsitename.com/> (referer: http://finlandned.org/websites.xml)
+2017-09-06 10:11:24 [xml_feed_spider.log] ERROR: Status; HttpError on http://wrongsitename.com/ , DownloadTime: 0.004
+2017-09-06 10:11:25 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://finlandned.org/administrator/index.php> (referer: http://finlandned.org/websites.xml)
+2017-09-06 10:11:25 [xml_feed_spider.log] INFO: Status; NoError on http://finlandned.org/administrator/index.php , DownloadTime: 0.700
+2017-09-06 10:11:25 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://www.valaquanta.fi/wp-login.php> (referer: http://finlandned.org/websites.xml)
+2017-09-06 10:11:25 [xml_feed_spider.log] ERROR: Status; RequiredPathNotFound on http://www.valaquanta.fi/wp-login.php , DownloadTime: 0.903
+2017-09-06 10:11:25 [scrapy.core.engine] INFO: Closing spider (finished)
+2017-09-06 10:11:25 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
 {'downloader/exception_count': 3,
  'downloader/exception_type_count/twisted.internet.error.DNSLookupError': 3,
  'downloader/request_bytes': 1556,
@@ -50,7 +50,7 @@
  'downloader/response_status_count/110': 1,
  'downloader/response_status_count/200': 3,
  'finish_reason': 'finished',
- 'finish_time': datetime.datetime(2017, 9, 5, 20, 37, 11, 260671),
+ 'finish_time': datetime.datetime(2017, 9, 6, 7, 11, 25, 468256),
  'log_count/DEBUG': 8,
  'log_count/ERROR': 2,
  'log_count/INFO': 8,
@@ -60,5 +60,5 @@
  'scheduler/dequeued/memory': 6,
  'scheduler/enqueued': 6,
  'scheduler/enqueued/memory': 6,
- 'start_time': datetime.datetime(2017, 9, 5, 20, 37, 10, 374228)}
-2017-09-05 23:37:11 [scrapy.core.engine] INFO: Spider closed (finished)
+ 'start_time': datetime.datetime(2017, 9, 6, 7, 11, 24, 132162)}
+2017-09-06 10:11:25 [scrapy.core.engine] INFO: Spider closed (finished)

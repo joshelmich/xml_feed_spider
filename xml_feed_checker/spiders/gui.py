@@ -1,12 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
+# Author Jos Helmich
+# email: jos.helmich@finlandned.org
+# 
 import sys
 import os
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4 import QtCore, QtGui
 
+# Sample info
 #my_struct = [
 #2017-09-05 21:11:32 [xml_feed_spider.log] ERROR: Status; HttpError on http://wrongsitename.com/ , DownloadTime: 0.004
 #2017-09-05 21:11:32 [xml_feed_spider.log] INFO: Status; NoError on http://finlandned.org/administrator/index.php , DownloadTime: 0.375
@@ -14,6 +17,8 @@ from PyQt4 import QtCore, QtGui
 #]
 my_struct = []
 table = None
+
+DOWNLOAD_TIMER_INTERVAL = 10000 # Be careful! This interval should not be lower than the time that it takes for run.sh to complete
 
 my_keys = ["Date", "Time", "ignore", "Status", "ignore", "Specific", "ignore", "Web url", "ignore", "ignore", "Download Time"]
 headers = ["Date", "Time",  "Status", "Specific", "Web url", "Download Time"]
@@ -29,8 +34,6 @@ class MyTable(QTableWidget):
 	def setmydata(self):
 		self.setHorizontalHeaderLabels(self.headers)		
 		n = 0		
-		print "data len", len(self.data)
-		print "length keys", len(self.keys)
 		for n in range(0, len(self.data)):
 			m = 0			
 			j = 0
@@ -42,7 +45,6 @@ class MyTable(QTableWidget):
 						temp = item.split(":");
 						item = temp[0]					
 					newitem = QTableWidgetItem(item)
-#					print "newitem", newitem.text()
 					self.setItem(n, j, newitem)
 					j += 1
 				m += 1
@@ -50,10 +52,7 @@ class MyTable(QTableWidget):
 		pass
 
 	def refresh(self):
-		print "refresh"
 		self.data = my_struct
-		#print "my_struct", my_struct
-		print "len(my_struct)", len(my_struct)
 		for n in range(0, len(my_struct)):
 			j = 0
 			for m in range(0, len(self.keys)):
@@ -68,7 +67,7 @@ class MyTable(QTableWidget):
 					j += 1
 		pass
 
-
+# this class is needed to resize the columns properly
 class ResizeDelegate(QStyledItemDelegate):
 
     def __init__(self, table, stretch_column, *args, **kwargs):
@@ -91,7 +90,8 @@ class ResizeDelegate(QStyledItemDelegate):
             if calc_width < total_width:
                 size.setWidth(size.width() + total_width - calc_width)
         return size
-    
+
+# this class reads the information from file
 class info(QObject):
 	
 	refresh = pyqtSignal()
@@ -99,7 +99,6 @@ class info(QObject):
 	def get_information(self):	
 		del my_struct[:]	
 		os.system("./run.sh")
-		print "Get informaton"			
 		f = open('status.txt')
 		f.seek(0)
 		lines = f.readlines()
@@ -107,29 +106,44 @@ class info(QObject):
 			line = lines[i].split()
 			if len(line) > 2:
 				my_struct.append(line)
-			#print line
-		#print "my_struct:", my_struct
 		f.close()
 		self.refresh.emit()
 		
+	def get_refresh_interval(self):
+		f = open('gui.cfg')
+		if (f > 0):
+			cfg_lines = f.readlines()
+			print "cfg_lines", cfg_lines
+			for i in range(0, len(cfg_lines)):
+				line = cfg_lines[i].split()
+				print "line", line
+				if len(line) >= 3:
+					if line[0] == "DOWNLOAD_TIMER_INTERVAL" and line[1] == "=":
+						interval = line[2]
+						return int(interval)
+			f.close()
+		return -1
+			
 def main():       
 	app = QtGui.QApplication(sys.argv)
+	# grabbing the first info
 	my_info = info()
+	ret = my_info.get_refresh_interval()
+	if (ret != -1):
+		DOWNLOAD_TIMER_INTERVAL = ret
 	my_info.get_information()	
-	print "len mystruct", len(my_struct)
+	# initializing the table
 	table = MyTable(my_struct, len(my_struct), len(headers))
-	my_info.refresh.connect(table.refresh)
 	delegate = ResizeDelegate(table, 0)
 	table.setItemDelegate(delegate)
 	table.resizeColumnsToContents()	
+	# scheduling refresh
+	my_info.refresh.connect(table.refresh) # when my_inf emits a signal table.refresh is executed
 	timer = QTimer()
 	timer.timeout.connect(my_info.get_information)
-	timer.start(10000)
-
-	
-	#table.showMaximized()
-	table.show()    
-    
+	timer.start(DOWNLOAD_TIMER_INTERVAL)
+	# display table widget
+	table.showMaximized()
 	sys.exit(app.exec_())
     
 if __name__ == '__main__':

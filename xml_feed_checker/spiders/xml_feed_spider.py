@@ -1,3 +1,6 @@
+# Author Jos Helmich
+# email: jos.helmich@finlandned.org
+
 import scrapy
 from scrapy.spiders import XMLFeedSpider
 from scrapy.utils.log import configure_logging
@@ -27,13 +30,9 @@ class MySpider(XMLFeedSpider):
 	iterator = 'iternodes' # This is actually unnecesary, since it's the default value
 	itertag = 'site'
 	configure_logging(install_root_handler=False)
-#	logging.basicConfig(filename='xml_feed_spider.log', 
-#		filemode='w', 
-#		format='%(levelname)s: %(message)s', 
-#		level=logging.INFO)
-	logger = logging.getLogger('xml_feed_spider.log')
 	logger.info('its started')
 	
+# reads a website node from XML file	
 	def parse_node(self, response, node):		
 		an_item = site_item()
 		feed_items = ItemLoader(item=an_item, response=response)		
@@ -44,10 +43,10 @@ class MySpider(XMLFeedSpider):
 		an_item['password'] = node.xpath('password').extract()
 		an_item['x_path'] = node.xpath('x_path').extract()
 		an_item['content_requirement'] = node.xpath('content_requirement').extract()
-#		self.logger.info('url found: %s', an_item['url'])		
 		self.my_items.append(an_item)
 		return feed_items.item  
-		
+	
+# sometimes a string is returned with tag included, we are only interested in the content of the node	
 	def strip_tag(self, a_string, tagname):
 		empty_tag = "<" + tagname + "/>"
 		if empty_tag == a_string:
@@ -59,20 +58,18 @@ class MySpider(XMLFeedSpider):
 		temp_string = temp_strings[0]
 		return temp_string
 		
+# sometimes a string is returned with CDATA included, we are only interested in the content of the node			
 	def strip_cdata(self, a_string):
 		if a_string.find("![CDATA[") == -1:
 			return a_string
 		temp_string = a_string.split("![CDATA[")
 		temp_string = temp_string[1].split("]]")
 		return temp_string[0]
-		
-#	def log_content(self, content_found, url):
-#		if content_found == "":
-#			self.logger.error("Status; RequiredPathNotFound on %s", url)
-#		else:
-#			self.logger.info("Status; NoError on %s", url)
-#		return 
-		
+
+# executes when a link test does not result in an error
+# in that case we test for a required xpath
+# when a required xpath is found we test for specific required content
+# download time is taking from middleware object DownloadTimer  
 	def parse_web_url_response(self, response):
 		if response.status == 200:
 			print "response.url", response.url.encode("utf8")
@@ -108,6 +105,8 @@ class MySpider(XMLFeedSpider):
 					break
 		return
 		
+# if a link test results in failure we try to find the specific error
+# download time is taking from middleware object DownloadTimer 		
 	def parse_request_error(self, failure):
 		response = failure.value.response
 		download_time = response.meta['__end_time'] - response.meta['__start_time']
@@ -124,7 +123,7 @@ class MySpider(XMLFeedSpider):
 			request = failure.request
 			self.logger.error('Status; TimeoutError on %s , DownloadTime: %.3f', request.url, download_time)		
 
-		
+# parses the nodes found in XML file		
 	def parse_nodes(self, response, nodes):
 		response.selector.remove_namespaces()
 		for selector in nodes:
@@ -133,7 +132,6 @@ class MySpider(XMLFeedSpider):
 				temp_url = result_item['url'][0].split('<url>')
 				temp_url = temp_url[1].split('</url>')
 				web_url = temp_url[0]
-				print "web_url", web_url				
 				yield scrapy.Request(url=web_url, 
 					callback=self.parse_web_url_response, 
 					errback=self.parse_request_error, 
