@@ -57,6 +57,9 @@ ROBOTSTXT_OBEY = False
 #    'xml_feed_checker.middlewares.MyCustomDownloaderMiddleware': 543,
 #}
 
+# Note of Jos Helmich
+# this configures the DownloadTimer defined in middlewares.py
+# note that you need to have created your project with scrapy startproject in order for this to work
 DOWNLOADER_MIDDLEWARES = {
     'xml_feed_checker.middlewares.DownloadTimer': 0,
 }

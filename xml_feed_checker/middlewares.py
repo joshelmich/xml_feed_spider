@@ -65,7 +65,7 @@ class DownloadTimer(object):
 
     def process_response(self, request, response, spider):
         request.meta['__end_time'] = time()
-        return response  # return response coz we should
+        return response  
 
     def process_exception(self, request, exception, spider):
         return Response(
