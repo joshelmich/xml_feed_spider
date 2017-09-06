@@ -60,7 +60,7 @@ class XmlFeedCheckerSpiderMiddleware(object):
 class DownloadTimer(object):
     def process_request(self, request, spider):
         request.meta['__start_time'] = time()
-        # this not block middlewares which are has greater number then this
+        # this does not block middlewares which are has greater number then this
         return None
 
     def process_response(self, request, response, spider):
