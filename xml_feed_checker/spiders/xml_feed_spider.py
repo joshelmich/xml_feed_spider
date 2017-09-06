@@ -30,6 +30,7 @@ class MySpider(XMLFeedSpider):
 	iterator = 'iternodes' # This is actually unnecesary, since it's the default value
 	itertag = 'site'
 	configure_logging(install_root_handler=False)
+	logger = logging.getLogger('xml_feed_spider.log')
 	logger.info('its started')
 	
 # reads a website node from XML file	
