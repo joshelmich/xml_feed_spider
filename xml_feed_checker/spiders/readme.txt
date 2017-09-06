@@ -9,7 +9,7 @@ sudo apt-get install python2.7
 sudo apt-get install python-dev python-pip libxml2-dev libxslt1-dev zlib1g-dev libffi-dev libssl-dev
 sudo apt-get install python-qt4
 
-pip install Scrapy
+pip install scrapy
 pip install lxml
 
 Optional (needed for hashing passwords): 
